@@ -1,0 +1,27 @@
+{
+    "users" : [
+        {
+            "id" : 1,
+            "sim_score" : 0.5,
+            "phenotypes" : ["Dysphagia", "Scoliosis", "Muscle weakness"],
+            "diagnosis_name" : "Spinal Muscular Atrophy",
+            "diagnosis_gene" : "SMN1"
+        },
+
+        {
+            "id" : 2,
+            "sim_score" : 0.8,
+            "phenotypes" : ["Muscle weakness", "Broken leg", "Nausea"],
+            "diagnosis_name" : "Weakness",
+            "diagnosis_gene" : "COL6A1"
+        },
+
+        {
+            "id" : 3,
+            "sim_score" : 0.2,
+            "phenotypes" : ["lower limb muscle weakness", "runny nose"],
+            "diagnosis_name" : "Fibromyalgia",
+            "diagnosis_gene" : "MECP2"
+        }
+    ]
+}
