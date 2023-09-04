@@ -2,12 +2,17 @@
     <div id="bar-content">
         <div id="phen-var">
             <div id="phen-var-titles">
-                <h1>Phenotypes</h1>
-                <h1>Variants</h1>
+                <h1 v-on:click="phenoSelected=true" :style="phenoSelected ? { 'text-decoration':'underline', 'text-decoration-color':'#bb91f3'} : {'text-decoration':'none'}">Phenotypes</h1>
+                <h1 v-on:click="phenoSelected=false" :style="phenoSelected ? { 'text-decoration':'none'} : {'text-decoration':'underline', 'text-decoration-color':'#bb91f3'}">Variants</h1>
             </div>
-            <p v-for="phen in currentPhenotypes" :key="phen">
-                {{ phen }}
-            </p>
+            <div id="term-list">
+                <p v-for="phen in currentPhenotypes" :key="phen" v-if="phenoSelected">
+                    {{ phen }}
+                </p>
+                <p v-for="gene in currentGenes" :key="gene" v-if="!phenoSelected">
+                    {{ gene }}
+                </p>
+            </div>
         </div>
         <div id="bar-key">
             <h1>Key</h1>
@@ -30,6 +35,11 @@
     #phen-var-titles {
         display: flex;
         flex-direction: row;
+        justify-content: space-evenly;
+    }
+
+    #term-list {
+        margin-left: 15%;
     }
 
 </style>
@@ -39,12 +49,13 @@
         name: 'vis-bar',
 
         props: {
-            currentPhenotypes: null
+            currentPhenotypes: null,
+            currentGenes: null
         },
 
         data() {
             return {
-
+                phenoSelected: true
             }
         }
     }

@@ -1,5 +1,8 @@
 {
     "logged_user" : {
-        "phenotypes" : ["Migraine", "Asthma", "Wrist flexion contracture"]
+        "#family_id" : "1234",
+        "ID" : "UDN1234",
+        "Terms" : ["HP:0000790", "HP:0000822", "HP:0000952", "HP:0001263", "HP:0001269", "HP:0001290"],
+        "prioritized_genes" : []
     }
 }

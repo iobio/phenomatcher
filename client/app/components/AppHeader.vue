@@ -1,23 +1,27 @@
 <template>
-    <div>
-        <body>
-            <header>
-                <a class="home-page-link" href="/">pheno.iobio</a>
-            </header>
-        </body>
+    <div id="header-bar">
+        <a class="home-page-link" href="/">pheno.iobio</a>
     </div>
 </template>
 
 <style>
-    body {
-        font-family: Quicksand;
-        
+    #header-bar {
+        font-family: sans-serif;
         width: 100%;
+        height: 5%;
+        font-weight: 300;
+        font-size: 26px;
+        padding-bottom: 2px;
+        background-color: #bb91f3;
     }
 
-    header {
-        font-size: 26px;
-        color: black;
+    .home-page-link:hover {
+        text-decoration: underline;
+    }
+
+    .home-page-link {
+        margin-left: 2%;
+        color: white;
     }
 </style>
 

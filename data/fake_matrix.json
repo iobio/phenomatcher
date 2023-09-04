@@ -1,27 +1,30 @@
 {
     "users" : [
         {
-            "id" : 1,
+            "#family_id" : "1",
+            "ID" : "UDN1",
             "sim_score" : 0.5,
-            "phenotypes" : ["Dysphagia", "Scoliosis", "Muscle weakness"],
-            "diagnosis_name" : "Spinal Muscular Atrophy",
-            "diagnosis_gene" : "SMN1"
+            "Terms" : ["HP:0000790", "HP:0000047", "HP:0000256", "HP:0000283", "HP:0000463", "HP:0000514", "HP:0001263"],
+            "Gene_Diagnosis" : "AHDC1",
+            "Clin_Diagnosis" : "Xia Gibbs syndrome"
         },
 
         {
-            "id" : 2,
+            "#family_id" : "2",
+            "ID" : "UDN2",
             "sim_score" : 0.8,
-            "phenotypes" : ["Muscle weakness", "Broken leg", "Nausea"],
-            "diagnosis_name" : "Weakness",
-            "diagnosis_gene" : "COL6A1"
+            "Terms" : ["HP:0000822", "HP:0000011", "HP:0000252", "HP:0000520", "HP:0001182", "HP:0001250"],
+            "Gene_Diagnosis" : "ALG1",
+            "Clin_Diagnosis" : "Congenital Disorder of Glycosylation"
         },
 
         {
-            "id" : 3,
+            "#family_id" : "3",
+            "ID" : "UDN3",
             "sim_score" : 0.2,
-            "phenotypes" : ["lower limb muscle weakness", "runny nose"],
-            "diagnosis_name" : "Fibromyalgia",
-            "diagnosis_gene" : "MECP2"
+            "Terms" : ["HP:0000790", "HP:0000219", "HP:0000294", "HP:0000303", "HP:0000311", "HP:0000370", "HP:0000389"],
+            "Gene_Diagnosis" : "ALMS1",
+            "Clin_Diagnosis" : "Alstrom syndrome"
         }
     ]
 }
