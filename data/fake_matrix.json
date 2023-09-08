@@ -25,6 +25,15 @@
             "Terms" : ["HP:0000790", "HP:0000219", "HP:0000294", "HP:0000303", "HP:0000311", "HP:0000370", "HP:0000389"],
             "Gene_Diagnosis" : "ALMS1",
             "Clin_Diagnosis" : "Alstrom syndrome"
+        },
+
+        {
+            "#family_id" : "4",
+            "ID" : "UDN4",
+            "sim_score" : 0.55,
+            "Terms" : ["HP:0000822", "HP:0000952"],
+            "Gene_Diagnosis" : "A Good one",
+            "Clin_Diagnosis" : "Cancer"
         }
     ]
 }

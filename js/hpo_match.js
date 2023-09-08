@@ -1,4 +1,4 @@
-matchTermsToTypes = function(data) {
+function matchTermsToTypes(data) {
     var split = data.split('\n').map(function (el) { return el.split(/\s+/); });
     var head = split.shift();
     var obj = split.map(function (el) {
@@ -10,9 +10,9 @@ matchTermsToTypes = function(data) {
     });
 
     return obj;
-},
+}
 
-phenotypeGet = function(matchers) {
+function phenotypeGet(matchers) {
     let pTerms = []
     let gTerms = []
     for (let i = 0; i < this.currentUserTerms.length; i++) {

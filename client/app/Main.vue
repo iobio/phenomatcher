@@ -24,7 +24,9 @@ import { onMounted } from 'vue';
             </div>
             <div class="main-section" id="main-graph">
                 <MainGraph :comparisonPatients="comparisonPatients"
-                           :patientCallback="selectedPatientCallback"/>
+                           :patientCallback="selectedPatientCallback"
+                           :curScore="selectedPatient.sim_score"
+                           :curPatientID="selectedPatient.ID"/>
             </div>
         </div>
         <div class="main-section" id="main-desc">
@@ -82,7 +84,7 @@ import { onMounted } from 'vue';
 }
 
 #main-vis {
-    height: 50%;
+    height: 60%;
     display: flex;
     flex-direction: row;
 }
@@ -93,10 +95,11 @@ import { onMounted } from 'vue';
 
 #main-graph {
     width: 80%;
+
 }
 
 #main-desc {
-    height: 50%;
+    height: 40%;
     display: flex;
     flex-direction: row;
 }
@@ -140,7 +143,7 @@ import { onMounted } from 'vue';
             var t = this.phenotypeAndGeneGet(m, phenoData.logged_user.Terms);
             this.currentPhenotypes = t[0];
             this.currentGenes = t[1];
-            var newMatching = this.findOverlappedTerms(phenoData.logged_user.Terms, otherPatientData.users[0].Terms);
+            var newMatching = this.findOverlappedTerms(phenoData.logged_user.Terms, this.selectedPatient.Terms);
             var t = this.phenotypeAndGeneGet(m, newMatching);
             this.overlappingPhenotypes = t[0];
             this.overlappingGenes = t[1];

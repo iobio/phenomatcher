@@ -1,14 +1,14 @@
 
 <template>
     <div id="main-graph-content">
-        <div id="graph" style="width: 75%">
-            <CircleGraph :comparisonPatients="comparisonPatients" 
+            <CircleGraph :currentPatientID="curPatientID"
+                         :comparisonPatients="comparisonPatients" 
                          :minScore="scoreSlider" 
                          :maxN="nSlider"
                          :nSliderCall="nSliderCallback"
-                         :sPatientCallback="patientCallback"/>
-        </div>
-        <div id="graph-sliders" style="width: 40%; margin-right: 2%; margin-top: 5%;">
+                         :sPatientCallback="patientCallback"
+                         style="height: 100%; width: 75%;"/>
+        <div id="graph-sliders">
             <div class="graph-slider">
                 <p class="slider-label">Score</p>
                 <VueSlider style="width: 60%" v-model="scoreSlider" :interval="0.1" :min="0" :max="1"/>
@@ -17,6 +17,7 @@
                 <p class="slider-label">N</p>
                 <VueSlider style="width: 60%" theme v-model="nSlider" :interval="1" :min="0" :max="comparisonPatients.length"/>
             </div>
+            <p>{{ curScore }}</p>
         </div>
     </div>
 </template>
@@ -27,13 +28,19 @@
         flex-direction: row;
         height: 100%;
     }
+
+    #graph-sliders {
+        width: 30%;
+        margin-right: 2%;
+        margin-top: 5%;
+    }
     .graph-slider {
         display: flex;
         flex-direction: row;
         width: 100%;
     }
     .slider-label {
-        width: 5%;
+        width: 25%;
         margin-right: 2%;
     }
 
@@ -58,6 +65,8 @@ $themeColor: #BB91F3;
         },
 
         props: {
+            curPatientID: null,
+            curScore: null,
             comparisonPatients: null,
             patientCallback: null
         },
