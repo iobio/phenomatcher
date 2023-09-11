@@ -76,81 +76,127 @@
                 .attr("height", graphHeight)
                 .attr("id", "main-svg");
 
+                let sinOfFortyFive = 0.707106781
+
                 let circMaxRadius = 0;
 
                 if (graphHeight < graphWidth) {
-                    circMaxRadius = graphHeight / 2;
+                    circMaxRadius = (graphHeight - 100) / 2;
                 }
                 else {
-                    circMaxRadius = graphWidth / 2;
+                    circMaxRadius = (graphWidth - 100) / 2;
                 }
+
+                var nPatients = this.comparisonPatients.filter((item, i) => i<this.maxN);
+                if (nPatients.length == 1) {
+                    var maxRad = nPatients.at(0);
+                }
+                else if (nPatients.length == 0) {
+                    var maxRad = 0;
+                }
+                else {
+                    var maxRad = nPatients.reduce(function(prev, current) {
+                        return (prev.y < current.y) ? prev : current
+                    })
+                }
+                maxRad = 1 - maxRad.sim_score;
                 
-                let transformHeight = graphHeight / 2;
-                let transformWidth = graphWidth / 2;
                 for (let i = 0; i < this.maxN; i++) {
                     var val = 1 - this.comparisonPatients.at(i).sim_score;
+                    val = val / maxRad;
+                    let curRadius = circMaxRadius * val;
+                    let transformWidth = (sinOfFortyFive * curRadius) + 100;
+                    let transformHeight = graphHeight - (sinOfFortyFive * curRadius) - 100;
                     svg.append("path")
-                    .attr("transform", "translate(" + transformWidth + ", " + transformHeight + ")")
+                    .attr("transform", "translate(" + transformWidth + ", " + transformHeight+ ")")
                     .attr("d", d3.arc() ({
-                        innerRadius: circMaxRadius * val,
-                        outerRadius: (circMaxRadius * val) + 1,
+                        innerRadius: curRadius,
+                        outerRadius: curRadius + 1,
                         startAngle: 0,
                         endAngle: Math.PI * 2
                     }));
                     var circ = svg.append("circle")
                     .attr("id", "circ" + i)
-                    .attr("cx", transformWidth + (transformWidth * val))
-                    .attr("cy", transformHeight)
-                    .attr("r", 5)
+                    .attr("cx", (transformWidth + (sinOfFortyFive * curRadius)))
+                    .attr("cy", (transformHeight - (sinOfFortyFive * curRadius)))
+                    .attr("r", 10)
                     .on("click", data => {
                         var id = data.currentTarget.id;
                         var iid = id.substr(-1);
                         var svg = d3.select("#graph").select("#main-svg");
                         svg.selectAll("circle").style("fill", "black");
-                        svg.select("#" + id).style("fill", "red");
+                        svg.select("#" + id).style("fill", "#bb91f3");
                         this.sPatientCallback(this.comparisonPatients.at((parseInt(iid))));
                     });
                     if (this.currentPatientID == this.comparisonPatients.at(i).ID) {
-                        circ.style("fill", "red");
+                        circ.style("fill", "#bb91f3");
                     }
                 }
             },
 
             updateGraph: function() {
-                let graphHeight = 400;
-                let graphWidth = 400;
+                let el = d3.select("#graph").node().getBoundingClientRect();
+                let graphHeight = el.height;
+                let graphWidth = el.width;
 
-                let transformHeight = graphHeight / 2;
-                let transformWidth = graphWidth / 2;
                 d3.selectAll("svg > *").remove();
                 var svg = d3.select("#graph").select("#main-svg");
 
 
+                let sinOfFortyFive = 0.707106781
+
+                let circMaxRadius = 0;
+
+                if (graphHeight < graphWidth) {
+                    circMaxRadius = (graphHeight - 100) / 2;
+                }
+                else {
+                    circMaxRadius = (graphWidth - 100) / 2;
+                }
+
+                var nPatients = this.comparisonPatients.filter((item, i) => i<this.maxN);
+                if (nPatients.length == 1) {
+                    var maxRad = nPatients.at(0);
+                }
+                else if (nPatients.length == 0) {
+                    var maxRad = 0;
+                }
+                else {
+                    var maxRad = nPatients.reduce(function(prev, current) {
+                        return (prev.y < current.y) ? prev : current
+                    })
+                }
+                maxRad = 1 - maxRad.sim_score;
+
                 for (let i = 0; i < this.maxN; i++) {
                     var val = 1 - this.comparisonPatients.at(i).sim_score;
+                    val = val / maxRad;
+                    let curRadius = circMaxRadius * val;
+                    let transformWidth = (sinOfFortyFive * curRadius) + 100;
+                    let transformHeight = graphHeight - (sinOfFortyFive * curRadius) - 100;
                     svg.append("path")
-                    .attr("transform", "translate(" + transformHeight + ", " + transformWidth + ")")
+                    .attr("transform", "translate(" + transformWidth + ", " + transformHeight+ ")")
                     .attr("d", d3.arc() ({
-                        innerRadius: transformHeight * val,
-                        outerRadius: (transformHeight * val) + 1,
+                        innerRadius: curRadius,
+                        outerRadius: curRadius + 1,
                         startAngle: 0,
                         endAngle: Math.PI * 2
                     }));
                     var circ = svg.append("circle")
                     .attr("id", "circ" + i)
-                    .attr("cx", transformWidth + (transformWidth * val))
-                    .attr("cy", transformHeight)
-                    .attr("r", 5)
+                    .attr("cx", (transformWidth + (sinOfFortyFive * curRadius)))
+                    .attr("cy", (transformHeight - (sinOfFortyFive * curRadius)))
+                    .attr("r", 10)
                     .on("click", data => {
                         var id = data.currentTarget.id;
                         var iid = id.substr(-1);
                         var svg = d3.select("#graph").select("#main-svg");
                         svg.selectAll("circle").style("fill", "black");
-                        svg.select("#" + id).style("fill", "red");
+                        svg.select("#" + id).style("fill", "#bb91f3");
                         this.sPatientCallback(this.comparisonPatients.at((parseInt(iid))));
                     });
                     if (this.currentPatientID == this.comparisonPatients.at(i).ID) {
-                        circ.style("fill", "red");
+                        circ.style("fill", "#bb91f3");
                     }
                 }
             }
@@ -159,6 +205,7 @@
         watch: {
             minScore(newVal, oldVal) {
                 this.displayPatients = this.filterPatients(this.comparisonPatients, newVal, this.maxN);
+                this.updateGraph();
             },
 
             maxN(newVal, oldVal) {

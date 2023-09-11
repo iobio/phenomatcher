@@ -34,6 +34,15 @@
             "Terms" : ["HP:0000822", "HP:0000952"],
             "Gene_Diagnosis" : "A Good one",
             "Clin_Diagnosis" : "Cancer"
+        },
+
+        {
+            "#family_id" : "5",
+            "ID" : "UDN5",
+            "sim_score" : 0.7,
+            "Terms" : ["HP:0000822"],
+            "Gene_Diagnosis" : "AHDC1",
+            "Clin_Diagnosis" : "Cystic Fibrosis"
         }
     ]
 }
