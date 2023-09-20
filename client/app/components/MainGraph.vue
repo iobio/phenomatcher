@@ -1,6 +1,6 @@
 
 <template>
-    <div id="main-graph-content">
+    <v-card id="main-graph-content">
             <CircleGraph :currentPatientID="curPatientID"
                          :comparisonPatients="comparisonPatients" 
                          :minScore="scoreSlider" 
@@ -19,7 +19,7 @@
             </div>
             <p>{{ curScore }}</p>
         </div>
-    </div>
+    </v-card>
 </template>
 
 <style>

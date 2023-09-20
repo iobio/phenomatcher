@@ -10,8 +10,8 @@ import { onMounted } from 'vue';
 </script>
 
 <template>
-  
-  <div id="main-page">
+  <v-app>
+  <v-content id="main-page">
     <AppHeader />
   <div class="main-section" id="main-content">
     <div id="left-bar">
@@ -19,9 +19,6 @@ import { onMounted } from 'vue';
     </div>
     <div class="main-section" id="main-panel">
         <div class="main-section" id="main-vis">
-            <div class="main-section" id="main-anno">
-                <HPOAnnotation :currentSelectedPatientGenes="overlappingGenes"/>
-            </div>
             <div class="main-section" id="main-graph">
                 <MainGraph :comparisonPatients="comparisonPatients"
                            :patientCallback="selectedPatientCallback"
@@ -42,17 +39,14 @@ import { onMounted } from 'vue';
         </div>
     </div>
   </div>
-  </div>
+  </v-content>
+</v-app>
 
 </template>
 
 <style>
 * {
     font-family: sans-serif;
-}
-
-.main-section {
-    border: 1px gray solid;
 }
 
 #main-page {
@@ -75,6 +69,7 @@ import { onMounted } from 'vue';
     display: flex;
     width: 20%;
     flex-direction: column;
+    border-right: 5px solid gray;
 }
 
 #main-panel {
@@ -87,14 +82,11 @@ import { onMounted } from 'vue';
     height: 60%;
     display: flex;
     flex-direction: row;
-}
-
-#main-anno {
-    width: 20%;
+    border-bottom: 5px solid gray;
 }
 
 #main-graph {
-    width: 80%;
+    width: 100%;
 
 }
 
@@ -106,6 +98,7 @@ import { onMounted } from 'vue';
 
 #main-summary {
     width: 30%;
+    border-right: 5px solid gray;
 }
 
 #main-overlap {
@@ -122,6 +115,8 @@ import { onMounted } from 'vue';
     import phenoData from '../../data/fake_person.json'
     import otherPatientData from '../../data/fake_matrix.json'
     import HPOMatchingData from '../../data/genes_to_phenotype.txt?raw'
+    import csv from '../../data/651_Dx_333_UDx_Trios_ID_Terms_Diagnoses_8.29.23.csv'
+    import scores from '../../data/651_Dx_333_UDx_Trios_jacccard_similarity_table_8.29.23.csv'
 
     export default {
         name: 'main-vue',
@@ -129,7 +124,7 @@ import { onMounted } from 'vue';
         data() {
             return { 
                 currentUserTerms: phenoData.logged_user.Terms,
-                selectedPatient: otherPatientData.users[0],
+                selectedPatient: otherPatientData.users.at(0),
                 comparisonPatients: otherPatientData.users,
                 currentPhenotypes: null,
                 currentGenes: null,
@@ -139,11 +134,19 @@ import { onMounted } from 'vue';
         },
 
         mounted() {
+            //var patients = csv;
+            //var completePatients = this.matchPatientsToScores(patients);
+            //this.selectedPatient = completePatients.at(1);
+            //this.comparisonPatients = completePatients
+            this.selectedPatient = otherPatientData.users.at(0);
+            this.comparisonPatients = otherPatientData.users;
             var m = this.matchTermsToTypes(HPOMatchingData);
-            var t = this.phenotypeAndGeneGet(m, phenoData.logged_user.Terms);
+            //var t = this.phenotypeAndGeneGet(m, csv.at(0).Terms);
+            var t = this.phenotypeAndGeneGet(m, otherPatientData.users.at(0).Terms)
             this.currentPhenotypes = t[0];
             this.currentGenes = t[1];
-            var newMatching = this.findOverlappedTerms(phenoData.logged_user.Terms, this.selectedPatient.Terms);
+            //var newMatching = this.findOverlappedTerms(csv.at(0).Terms, this.selectedPatient.Terms);
+            var newMatching = this.findOverlappedTerms(otherPatientData.users.at(0).Terms, this.selectedPatient.Terms)
             var t = this.phenotypeAndGeneGet(m, newMatching);
             this.overlappingPhenotypes = t[0];
             this.overlappingGenes = t[1];
@@ -200,6 +203,15 @@ import { onMounted } from 'vue';
                 var t = this.phenotypeAndGeneGet(this.matchTermsToTypes(HPOMatchingData), o);
                 this.overlappingPhenotypes = t[0];
                 this.overlappingGenes = t[1];
+            },
+
+            matchPatientsToScores: function(curPatients) {
+                var scoreChart = scores;
+                for (let i = 1; i < curPatients.length; i++) {
+                    var thisID = curPatients.at(i).ID;
+                    curPatients.at(i).sim_score = scoreChart.at(0)[thisID];
+                }
+                return curPatients;
             }
 
 

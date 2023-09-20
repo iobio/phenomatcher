@@ -1,5 +1,5 @@
 <template>
-    <div id="patient-summary-content">
+    <v-card id="patient-summary-content">
         <h1 class="region-title">Patient Summary</h1>
         <h2>Phenotypes</h2>
         <p v-for="term in currentSelectedPatientTerms" :key="term">
@@ -11,7 +11,7 @@
             <p>Gene:</p>
             <p style="font-weight: bold; margin-left: 5px;">{{ currentSelectedPatientGeneDiagnosis }}</p>
         </div>
-    </div>
+    </v-card>
 </template>
 
 <style scoped>

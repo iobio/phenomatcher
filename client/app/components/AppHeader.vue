@@ -1,7 +1,9 @@
 <template>
-    <div id="header-bar">
-        <a class="home-page-link" href="/">pheno.iobio</a>
-    </div>
+    <v-app-bar id="header-bar">
+        <v-toolbar-title style="width: 300px" class="headline text-uppercase">
+        <span class="home-page-link">pheno.iobio</span>
+      </v-toolbar-title>
+    </v-app-bar>
 </template>
 
 <style>
@@ -19,7 +21,7 @@
         text-decoration: underline;
     }
 
-    .home-page-link {
+    .home-page-link{
         margin-left: 2%;
         color: white;
     }

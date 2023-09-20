@@ -90,20 +90,26 @@
                 var nPatients = this.comparisonPatients.filter((item, i) => i<this.maxN);
                 if (nPatients.length == 1) {
                     var maxRad = nPatients.at(0);
+                    var minRad = 0;
                 }
                 else if (nPatients.length == 0) {
                     var maxRad = 0;
+                    var minRad = 0;
                 }
                 else {
                     var maxRad = nPatients.reduce(function(prev, current) {
-                        return (prev.y < current.y) ? prev : current
+                        return (prev.sim_score < current.sim_score) ? prev : current
+                    })
+                    var minRad = nPatients.reduce(function(prev, current) {
+                        return (prev.sim_score > current.sim_score) ? prev : current
                     })
                 }
-                maxRad = 1 - maxRad.sim_score;
+                maxRad = maxRad.sim_score;
+                minRad = minRad.sim_score;
                 
                 for (let i = 0; i < this.maxN; i++) {
-                    var val = 1 - this.comparisonPatients.at(i).sim_score;
-                    val = val / maxRad;
+                    var val = this.comparisonPatients.at(i).sim_score - minRad;
+                    val = val / (maxRad - minRad);
                     let curRadius = circMaxRadius * val;
                     let transformWidth = (sinOfFortyFive * curRadius) + 100;
                     let transformHeight = graphHeight - (sinOfFortyFive * curRadius) - 100;
@@ -157,20 +163,26 @@
                 var nPatients = this.comparisonPatients.filter((item, i) => i<this.maxN);
                 if (nPatients.length == 1) {
                     var maxRad = nPatients.at(0);
+                    var minRad = maxRad - (1 - maxRad);
                 }
                 else if (nPatients.length == 0) {
                     var maxRad = 0;
+                    var minRad = 0;
                 }
                 else {
                     var maxRad = nPatients.reduce(function(prev, current) {
                         return (prev.y < current.y) ? prev : current
                     })
+                    var minRad = nPatients.reduce(function(prev, current) {
+                        return (prev.sim_score > current.sim_score) ? prev : current
+                    })
                 }
-                maxRad = 1 - maxRad.sim_score;
+                maxRad = maxRad.sim_score;
+                minRad = minRad.sim_score + 0.05;
 
                 for (let i = 0; i < this.maxN; i++) {
-                    var val = 1 - this.comparisonPatients.at(i).sim_score;
-                    val = val / maxRad;
+                    var val = this.comparisonPatients.at(i).sim_score - minRad;
+                    val = val / (maxRad - minRad);
                     let curRadius = circMaxRadius * val;
                     let transformWidth = (sinOfFortyFive * curRadius) + 100;
                     let transformHeight = graphHeight - (sinOfFortyFive * curRadius) - 100;

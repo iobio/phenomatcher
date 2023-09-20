@@ -1,5 +1,5 @@
 <template>
-    <div id="overlap-content">
+    <v-card id="overlap-content">
         <div id="pheno-overlap">
             <h1 class="region-title">Phenotype Overlap</h1>
             <h2>Exact Match</h2>
@@ -14,7 +14,7 @@
                 {{ gene }}
             </p>
         </div>
-    </div>
+    </v-card>
 </template>
 
 <style scoped>

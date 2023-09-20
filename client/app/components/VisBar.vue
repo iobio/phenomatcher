@@ -1,5 +1,5 @@
 <template>
-    <div id="bar-content">
+    <v-card id="bar-content">
         <div id="phen-var">
             <div id="phen-var-titles">
                 <h1 v-on:click="phenoSelected=true" :style="phenoSelected ? { 'text-decoration':'underline', 'text-decoration-color':'#bb91f3'} : {'text-decoration':'none'}">Phenotypes</h1>
@@ -15,28 +15,8 @@
                 </p>
             </div>
         </div>
-        <div id="bar-key">
-            <h1>Key</h1>
-            <div id="query-patient-key">
-                <p>Query Patient</p>
-            </div>
-            <div id="selected-patient-key">
-                <p>Selected Patient</p>
-            </div>
-            <div id="diagnosed-key">
-                <p>Diagnosed</p>
-            </div>
-            <div id="undiagnosed-key">
-                <p>Undiagnosed</p>
-            </div>
-            <div id="gene-overlap-key">
-                <p>Gene Overlap</p>
-            </div>
-            <div id="no-gene-overlap-key">
-                <p>No Gene Overlap</p>
-            </div>
-        </div>
-    </div>
+
+    </v-card>
 </template>
 
 <style scoped>
@@ -65,12 +45,6 @@
         font-size: 25px;
         justify-self: center;
         align-self: center;
-    }
-
-    #bar-key {
-        display: flex;
-        flex-direction: column;
-        margin-left: 5%;
     }
 
 </style>
