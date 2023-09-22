@@ -12,7 +12,7 @@ export default defineConfig({
   plugins: [
     vue(),
     dsv(),
-    vuetify()
+    vuetify({autoImport: true})
   ],
   resolve: {
     alias: {

@@ -6,7 +6,6 @@
             <p v-for="phen in overlapPhenotypes" :key="phen">
                 {{ phen }}
             </p>
-            <h2>Related</h2>
         </div>
         <div id="gene-overlap">
             <h1 class="region-title">Gene Overlap</h1>
@@ -19,15 +18,17 @@
 
 <style scoped>
     #overlap-content {
+        width: 100%;
+        height: 100%;
         display: flex;
         flex-direction: row;
         justify-content: space-evenly;
+        align-items: space-between;
     }
 
     #pheno-overlap {
         display: flex;
         flex-direction: column;
-        justify-content: space-evenly;
     }
 </style>
 

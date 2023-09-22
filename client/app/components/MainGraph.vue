@@ -1,6 +1,6 @@
 
 <template>
-    <v-card id="main-graph-content">
+    <v-card raised="true" id="main-graph-content">
             <CircleGraph :currentPatientID="curPatientID"
                          :comparisonPatients="comparisonPatients" 
                          :minScore="scoreSlider" 
@@ -17,13 +17,16 @@
                 <p class="slider-label">N</p>
                 <VueSlider style="width: 60%" theme v-model="nSlider" :interval="1" :min="0" :max="comparisonPatients.length"/>
             </div>
-            <p>{{ curScore }}</p>
+            <div id="score-display">
+                <p>Similarity Score: {{ curScore }}</p>
+            </div>
         </div>
     </v-card>
 </template>
 
 <style>
     #main-graph-content {
+        width: 100%;
         display: flex;
         flex-direction: row;
         height: 100%;
@@ -43,7 +46,11 @@
         width: 25%;
         margin-right: 2%;
     }
-
+    #score-display {
+        height: 50%;
+        display: flex;
+        align-items: center;
+    }
 </style>
 
 <style lang="scss">
