@@ -146,14 +146,12 @@ import { onMounted } from 'vue';
         mounted() {
             //var patients = csv;
             //var completePatients = this.matchPatientsToScores(patients);
-            //this.selectedPatient = completePatients.at(1);
-            //this.comparisonPatients = completePatients
+            //this.selectedPatient = completePatients.at(0);
+            //this.comparisonPatients = completePatients;
             var m = this.matchTermsToTypes(HPOMatchingData);
-            //var t = this.phenotypeAndGeneGet(m, csv.at(0).Terms);
-            var t = this.phenotypeAndGeneGet(m, otherPatientData.users.at(0).Terms)
+            var t = this.phenotypeAndGeneGet(m, this.currentUserTerms);
             this.currentPhenotypes = t[0];
             this.currentGenes = t[1];
-            //var newMatching = this.findOverlappedTerms(csv.at(0).Terms, this.selectedPatient.Terms);
             var newMatching = this.findOverlappedTerms(phenoData.logged_user.Terms, this.selectedPatient.Terms)
             var t = this.phenotypeAndGeneGet(m, newMatching);
             this.overlappingPhenotypes = t[0];
@@ -215,7 +213,7 @@ import { onMounted } from 'vue';
 
             matchPatientsToScores: function(curPatients) {
                 var scoreChart = scores;
-                for (let i = 1; i < curPatients.length; i++) {
+                for (let i = 0; i < curPatients.length; i++) {
                     var thisID = curPatients.at(i).ID;
                     curPatients.at(i).sim_score = scoreChart.at(0)[thisID];
                 }
